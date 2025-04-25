@@ -1,0 +1,704 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center py-4">
+                <h1 class="display-5">
+                    <i class="fas fa-trophy me-2"></i>Game Leaderboards<i class="fas fa-trophy ms-2"></i>
+                </h1>
+                <p class="lead mb-0">
+                    See who's leading the farewell games! Can you reach the top?
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Game Tabs for Leaderboards -->
+<ul class="nav nav-tabs mb-4" id="leaderboardTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" type="button" role="tab">
+            <i class="fas fa-star me-1"></i>Featured Games
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="all-games-tab" data-bs-toggle="tab" data-bs-target="#all-games" type="button" role="tab">
+            <i class="fas fa-gamepad me-1"></i>All Games
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="leaderboardTabContent">
+    <!-- Featured Games Tab -->
+    <div class="tab-pane fade show active" id="featured" role="tabpanel">
+        <div class="row">
+            <!-- Memory Game Leaderboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card leaderboard-card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-brain me-2"></i>Memory Game Leaders
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Player</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if leaderboards.memory_game %}
+                                        {% for entry in leaderboards.memory_game %}
+                                        <tr class="leaderboard-item {% if entry.username == username %}table-active{% endif %}">
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ entry.username }}</td>
+                                            <td>
+                                                <span class="badge bg-info rounded-pill score-badge">{{ entry.score }}</span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3" class="text-center text-muted py-3">No scores yet</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('memory_game') }}" class="btn btn-outline-info w-100">
+                            <i class="fas fa-play me-1"></i>Play Memory Game
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Word Puzzle Leaderboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card leaderboard-card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-font me-2"></i>Word Puzzle Leaders
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Player</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if leaderboards.word_puzzle %}
+                                        {% for entry in leaderboards.word_puzzle %}
+                                        <tr class="leaderboard-item {% if entry.username == username %}table-active{% endif %}">
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ entry.username }}</td>
+                                            <td>
+                                                <span class="badge bg-success rounded-pill score-badge">{{ entry.score }}</span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3" class="text-center text-muted py-3">No scores yet</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('word_puzzle') }}" class="btn btn-outline-success w-100">
+                            <i class="fas fa-play me-1"></i>Play Word Puzzle
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trivia Quiz Leaderboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card leaderboard-card">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-question-circle me-2"></i>Trivia Quiz Leaders
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Player</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if leaderboards.trivia_quiz %}
+                                        {% for entry in leaderboards.trivia_quiz %}
+                                        <tr class="leaderboard-item {% if entry.username == username %}table-active{% endif %}">
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ entry.username }}</td>
+                                            <td>
+                                                <span class="badge bg-warning rounded-pill score-badge">{{ entry.score }}</span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3" class="text-center text-muted py-3">No scores yet</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('trivia_quiz') }}" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-play me-1"></i>Play Trivia Quiz
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- All Games Tab -->
+    <div class="tab-pane fade" id="all-games" role="tabpanel">
+        <div class="row mb-4">
+            <div class="col-12 mb-3">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <span>Showing all 20 games available in our collection. Click on any game to play!</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Mini Leaderboard Cards - Row 1 -->
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #6a5acd; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-keyboard me-2"></i>Typing Race</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.typing_race %}
+                                {% for entry in leaderboards.typing_race[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('typing_race') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #20b2aa; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-puzzle-piece me-2"></i>Jigsaw Puzzle</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.jigsaw_puzzle %}
+                                {% for entry in leaderboards.jigsaw_puzzle[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('jigsaw_puzzle') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #ff6b6b; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-bomb me-2"></i>Minesweeper</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.minesweeper %}
+                                {% for entry in leaderboards.minesweeper[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('minesweeper') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #ff7f50; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Riddle Game</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.riddle_game %}
+                                {% for entry in leaderboards.riddle_game[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('riddle_game') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mini Leaderboard Cards - Row 2 -->
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #32cd32; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-gamepad me-2"></i>Snake Game</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.snake_game %}
+                                {% for entry in leaderboards.snake_game[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('snake_game') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #ba55d3; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-th me-2"></i>Tic Tac Toe</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.tic_tac_toe %}
+                                {% for entry in leaderboards.tic_tac_toe[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('tic_tac_toe') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #4682b4; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-image me-2"></i>Photo Puzzle</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.photo_puzzle %}
+                                {% for entry in leaderboards.photo_puzzle[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('photo_puzzle') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card leaderboard-card h-100">
+                    <div class="card-header" style="background-color: #cd853f; color: white;">
+                        <h6 class="mb-0"><i class="fas fa-bolt me-2"></i>Reaction Time</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush small">
+                            {% if leaderboards.reaction_time %}
+                                {% for entry in leaderboards.reaction_time[:5] %}
+                                    <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>{{ loop.index }}. {{ entry.username }}</small>
+                                            <small class="badge bg-secondary">{{ entry.score }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center p-2">
+                        <a href="{{ url_for('reaction_time') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- More Games Button -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#moreGamesLeaderboard">
+                    <i class="fas fa-plus-circle me-2"></i>View More Games (12 more)
+                </button>
+            </div>
+        </div>
+        
+        <!-- More Games Section (Collapsed) -->
+        <div class="collapse" id="moreGamesLeaderboard">
+            <div class="row">
+                <!-- Mini Leaderboard Cards - Row 3 -->
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #9932cc; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-address-card me-2"></i>Card Match</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.card_match %}
+                                    {% for entry in leaderboards.card_match[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('card_match') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #00ced1; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-palette me-2"></i>Color Memory</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.color_memory %}
+                                    {% for entry in leaderboards.color_memory[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('color_memory') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #4b0082; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-user-slash me-2"></i>Hangman</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.hangman %}
+                                    {% for entry in leaderboards.hangman[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('hangman') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #8b4513; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-calculator me-2"></i>Math Challenge</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.math_challenge %}
+                                    {% for entry in leaderboards.math_challenge[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('math_challenge') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mini Leaderboard Cards - Row 4 -->
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #696969; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-hashtag me-2"></i>Number Match</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.number_match %}
+                                    {% for entry in leaderboards.number_match[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('number_match') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #5f9ea0; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-layer-group me-2"></i>Pattern Recognition</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.pattern_recognition %}
+                                    {% for entry in leaderboards.pattern_recognition[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('pattern_recognition') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #daa520; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-award me-2"></i>Quiz Show</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.quiz_show %}
+                                    {% for entry in leaderboards.quiz_show[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('quiz_show') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #556b2f; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-list-ol me-2"></i>Sequence Memory</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.sequence_memory %}
+                                    {% for entry in leaderboards.sequence_memory[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('sequence_memory') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="card leaderboard-card h-100">
+                        <div class="card-header" style="background-color: #483d8b; color: white;">
+                            <h6 class="mb-0"><i class="fas fa-search me-2"></i>Word Search</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush small">
+                                {% if leaderboards.word_search %}
+                                    {% for entry in leaderboards.word_search[:5] %}
+                                        <li class="list-group-item leaderboard-item p-2 {% if entry.username == username %}list-group-item-primary{% endif %}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>{{ loop.index }}. {{ entry.username }}</small>
+                                                <small class="badge bg-secondary">{{ entry.score }}</small>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item p-2 text-center"><small>No scores yet</small></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center p-2">
+                            <a href="{{ url_for('word_search') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+        <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Leaderboard Information</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h6><i class="fas fa-brain me-2 text-info"></i>Memory Game Scoring:</h6>
+                <ul>
+                    <li>10 points per matched pair</li>
+                    <li>Time bonus for quick completion</li>
+                    <li>Penalty for incorrect matches</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6><i class="fas fa-font me-2 text-success"></i>Word Puzzle Scoring:</h6>
+                <ul>
+                    <li>Base score depends on word length</li>
+                    <li>Time bonus for quick answers</li>
+                    <li>Penalty for using hints</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6><i class="fas fa-question-circle me-2 text-warning"></i>Trivia Quiz Scoring:</h6>
+                <ul>
+                    <li>10 points per correct answer</li>
+                    <li>Time bonus for quick answers</li>
+                    <li>Completion bonus for finishing all questions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

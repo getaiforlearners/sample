@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farewell Celebration - {% block title %}Welcome{% endblock %}</title>
+    
+    <!-- Bootstrap CSS (Replit Theme) -->
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- SweetAlert2 for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <style>
+        :root {
+            --primary-color: #6e48aa;
+            --secondary-color: #9d50bb;
+            --accent-color: #00c9a7;
+            --gradient-start: #845ec2;
+            --gradient-end: #2c73d2;
+            --text-light: #ffffff;
+        }
+        
+        body {
+            background-color: #121212;
+            color: var(--text-light);
+            background-image: linear-gradient(120deg, #1a1a2e, #16213e);
+            background-attachment: fixed;
+        }
+        
+        .navbar {
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) !important;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand, .nav-link {
+            color: var(--text-light) !important;
+        }
+        
+        .card {
+            background-color: rgba(30, 30, 45, 0.8);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: none;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .card-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            border: none;
+        }
+        
+        .farewell-person-banner {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            display: inline-block;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-gift me-2"></i>Farewell Games
+                {% if farewell_person is defined %}
+                <span class="farewell-person-banner">
+                    <i class="fas fa-heart me-1"></i>For {{ farewell_person }}
+                </span>
+                {% endif %}
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if 'username' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('leaderboard') }}">
+                            <i class="fas fa-trophy me-1"></i>Leaderboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-gamepad me-1"></i>Games
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('memory_game') }}">
+                                    <i class="fas fa-brain me-1"></i>Memory Game
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('word_puzzle') }}">
+                                    <i class="fas fa-font me-1"></i>Word Puzzle
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('trivia_quiz') }}">
+                                    <i class="fas fa-question-circle me-1"></i>Trivia Quiz
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+                <ul class="navbar-nav ms-auto">
+                    {% if 'username' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('profile') }}">
+                            <i class="fas fa-user me-1"></i>{{ session['username'] }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('register') }}">
+                            <i class="fas fa-user-plus me-1"></i>Register
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container main-content py-4">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer py-3" style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        <i class="fas fa-heart text-danger"></i> 
+                        {% if farewell_person is defined %}
+                            A celebration for {{ farewell_person }}!
+                        {% else %}
+                            A celebration of our time together!
+                        {% endif %}
+                        <i class="fas fa-heart text-danger"></i>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        &copy; 2025 Farewell Games
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Surprise Button -->
+    {% if 'username' in session %}
+    <div class="surprise-btn" onclick="showSurpriseMessage()">
+        <i class="fas fa-gift"></i>
+    </div>
+    {% endif %}
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- SweetAlert2 for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+    
+    <!-- Confetti.js for celebrations -->
+    <script src="{{ url_for('static', filename='js/confetti.js') }}"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

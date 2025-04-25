@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+
+{% block title %}2048 Game{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-th me-2"></i>2048 Game</h5>
+                </div>
+                <div class="card-body">
+                    <div id="game-container"></div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid">
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Games
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/games/2048_game.js') }}"></script>
+<script>
+    new Game2048(document.getElementById('game-container'));
+</script>
+{% endblock %}

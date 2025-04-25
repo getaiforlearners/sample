@@ -1,0 +1,580 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card text-white position-relative">
+            <div class="card-body text-center py-5" style="background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);">
+                <h1 class="display-4 farewell-message">
+                    <i class="fas fa-star me-2"></i>Farewell Celebration Games<i class="fas fa-star ms-2"></i>
+                </h1>
+                
+                {% if farewell_person is defined %}
+                <div class="mb-3">
+                    <span class="badge rounded-pill bg-light text-dark px-4 py-2" style="font-size: 1.2rem;">
+                        <i class="fas fa-user-friends me-2"></i>Celebrating {{ farewell_person }}
+                    </span>
+                </div>
+                
+                {% if farewell_message is defined %}
+                <div class="farewell-quote p-3 mb-3 rounded" style="background-color: rgba(255,255,255,0.2);">
+                    <i class="fas fa-quote-left me-2 opacity-50"></i>
+                    <span class="fst-italic">{{ farewell_message }}</span>
+                    <i class="fas fa-quote-right ms-2 opacity-50"></i>
+                </div>
+                {% endif %}
+                {% endif %}
+                
+                <p class="lead">
+                    Join the fun as we celebrate this special farewell! 
+                    Play games, compete for high scores, and create lasting memories together.
+                </p>
+            </div>
+            <div class="position-absolute start-0 bottom-0 m-3 d-none d-md-block">
+                <i class="fas fa-gift fa-3x text-white opacity-25"></i>
+            </div>
+            <div class="position-absolute end-0 top-0 m-3 d-none d-md-block">
+                <i class="fas fa-paper-plane fa-3x text-white opacity-25"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Game Cards -->
+    <div class="col-lg-8">
+        <h2 class="mb-3"><i class="fas fa-gamepad me-2"></i>Games</h2>
+        
+        <div class="row">
+            <!-- Featured Games Section -->
+            <h4 class="mb-3">Featured Games</h4>
+            
+            <!-- First row of featured games -->
+            <div class="row mb-4">
+                <!-- Memory Game Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center bg-info">
+                            <i class="fas fa-brain fa-4x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Memory Game</h5>
+                            <div class="badge bg-success mb-2">Updated!</div>
+                            <p class="card-text">Test your memory by matching pairs of cards with farewell-themed symbols.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('memory_game') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Word Puzzle Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center bg-success">
+                            <i class="fas fa-font fa-4x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Word Puzzle</h5>
+                            <div class="badge bg-success mb-2">Updated!</div>
+                            <p class="card-text">Unscramble farewell-related words against the clock to score points.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('word_puzzle') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trivia Quiz Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center bg-warning">
+                            <i class="fas fa-question-circle fa-4x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Trivia Quiz</h5>
+                            <div class="badge bg-success mb-2">Updated!</div>
+                            <p class="card-text">Answer farewell and goodbye-themed trivia questions to earn points.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('trivia_quiz') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second row of featured games - New Games -->
+            <h4 class="mb-3">New Games</h4>
+            <div class="row">
+                <!-- Tetris Game Card -->
+                <div class="col-md-3 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);">
+                            <i class="fas fa-cubes fa-3x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Tetris Game</h5>
+                            <div class="badge bg-danger mb-2">NEW!</div>
+                            <p class="card-text">The classic block stacking game with a farewell twist.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('tetris_game') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2048 Game Card -->
+                <div class="col-md-3 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">
+                            <i class="fas fa-th fa-3x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">2048 Game</h5>
+                            <div class="badge bg-danger mb-2">NEW!</div>
+                            <p class="card-text">Combine the tiles to reach 2048 in this addictive puzzle game.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('game_2048') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pong Game Card -->
+                <div class="col-md-3 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #00b09b, #96c93d);">
+                            <i class="fas fa-table-tennis fa-3x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Pong Game</h5>
+                            <div class="badge bg-danger mb-2">NEW!</div>
+                            <p class="card-text">The original arcade classic - test your reflexes!</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('pong_game') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hangman Game Card -->
+                <div class="col-md-3 mb-4">
+                    <div class="card game-card h-100">
+                        <div class="card-img-top d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                            <i class="fas fa-user-slash fa-3x text-white"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Hangman</h5>
+                            <div class="badge bg-danger mb-2">NEW!</div>
+                            <p class="card-text">Guess the farewell-themed word before it's too late!</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('hangman') }}" class="btn btn-primary w-100">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- More Games Section -->
+        <div class="row mt-4">
+            <h4 class="mb-3">More Games</h4>
+            
+            <!-- First row of additional games -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #6a5acd;">
+                        <i class="fas fa-keyboard fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Typing Race</h6>
+                        <p class="card-text small">Type farewell messages as quickly as possible.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('typing_race') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #20b2aa;">
+                        <i class="fas fa-puzzle-piece fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Jigsaw Puzzle</h6>
+                        <p class="card-text small">Piece together a meaningful farewell image.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('jigsaw_puzzle') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #ff6b6b;">
+                        <i class="fas fa-bomb fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Minesweeper</h6>
+                        <p class="card-text small">Clear the board without hitting any mines.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('minesweeper') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #ff7f50;">
+                        <i class="fas fa-lightbulb fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Riddle Game</h6>
+                        <p class="card-text small">Solve farewell-themed riddles and brain teasers.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('riddle_game') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second row of additional games -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #32cd32;">
+                        <i class="fas fa-gamepad fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Snake Game</h6>
+                        <p class="card-text small">Classic snake game with a farewell twist.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('snake_game') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #ba55d3;">
+                        <i class="fas fa-th fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Tic Tac Toe</h6>
+                        <p class="card-text small">Classic game against an AI opponent.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('tic_tac_toe') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #4682b4;">
+                        <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Photo Puzzle</h6>
+                        <p class="card-text small">Slide pieces to complete a photo.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('photo_puzzle') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card game-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="background-color: #cd853f;">
+                        <i class="fas fa-bolt fa-3x text-white"></i>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="card-title">Reaction Time</h6>
+                        <p class="card-text small">Test your reflexes with this quick game.</p>
+                    </div>
+                    <div class="card-footer p-2">
+                        <a href="{{ url_for('reaction_time') }}" class="btn btn-sm btn-primary w-100">Play</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- View All Games Button -->
+        <div class="row mt-2 mb-4">
+            <div class="col-12 text-center">
+                <button class="btn btn-lg btn-outline-primary" id="viewAllGamesBtn">
+                    <i class="fas fa-plus-circle me-2"></i>View All Games
+                </button>
+            </div>
+        </div>
+        
+        <!-- All Games Section (Collapsed by default) -->
+        <div class="d-none" id="allGamesSection">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-th-large me-2"></i>All Available Games</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- Game list in alphabetical order -->
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('game_2048') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-th me-2"></i>2048 Game <span class="badge bg-danger ms-1">New</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('card_match') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-address-card me-2"></i>Card Match
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('color_memory') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-palette me-2"></i>Color Memory
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('hangman') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-user-slash me-2"></i>Hangman <span class="badge bg-danger ms-1">New</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('jigsaw_puzzle') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-puzzle-piece me-2"></i>Jigsaw Puzzle
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('math_challenge') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-calculator me-2"></i>Math Challenge
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('memory_game') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-brain me-2"></i>Memory Game
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('minesweeper') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-bomb me-2"></i>Minesweeper
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('number_match') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-hashtag me-2"></i>Number Match
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('pattern_recognition') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-layer-group me-2"></i>Pattern Recognition
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('photo_puzzle') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-image me-2"></i>Photo Puzzle
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('quiz_show') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-award me-2"></i>Quiz Show
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('reaction_time') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-bolt me-2"></i>Reaction Time
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('riddle_game') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-lightbulb me-2"></i>Riddle Game
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('sequence_memory') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-list-ol me-2"></i>Sequence Memory
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('pong_game') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-table-tennis me-2"></i>Pong Game <span class="badge bg-danger ms-1">New</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('snake_game') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-gamepad me-2"></i>Snake Game
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('tetris_game') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-cubes me-2"></i>Tetris Game <span class="badge bg-danger ms-1">New</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('tic_tac_toe') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-th me-2"></i>Tic Tac Toe
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('trivia_quiz') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-question-circle me-2"></i>Trivia Quiz
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('typing_race') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-keyboard me-2"></i>Typing Race
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('word_puzzle') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-font me-2"></i>Word Puzzle
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <a href="{{ url_for('word_search') }}" class="btn btn-outline-secondary w-100 text-start">
+                                        <i class="fas fa-search me-2"></i>Word Search
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Active Users and Stats -->
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-users me-2"></i>Active Users</h5>
+            </div>
+            <div class="card-body active-users-container">
+                <ul class="list-group active-users-list">
+                    <li class="list-group-item text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Top Players</h5>
+            </div>
+            <div class="card-body">
+                <p>Visit the <a href="{{ url_for('leaderboard') }}">leaderboard</a> to see top scores across all games!</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('leaderboard') }}" class="btn btn-outline-success">
+                        <i class="fas fa-chart-line me-2"></i>View Leaderboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Instructions Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>How to Play</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <h5><i class="fas fa-brain me-2 text-info"></i>Memory Game</h5>
+                        <ul>
+                            <li>Flip cards to find matching pairs</li>
+                            <li>Match all pairs before time runs out</li>
+                            <li>Score based on matches and time</li>
+                            <li>Race against the computer player</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5><i class="fas fa-font me-2 text-success"></i>Word Puzzle</h5>
+                        <ul>
+                            <li>Unscramble words in English or French</li>
+                            <li>Type your answer and submit</li>
+                            <li>Switch languages during gameplay</li>
+                            <li>Use hints when you're stuck</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5><i class="fas fa-question-circle me-2 text-warning"></i>Trivia Quiz</h5>
+                        <ul>
+                            <li>Answer farewell-themed questions</li>
+                            <li>Score points for correct answers</li>
+                            <li>Answer quickly for bonus points</li>
+                            <li>Enjoy funny responses after answers</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5><i class="fas fa-user-slash me-2 text-danger"></i>Hangman</h5>
+                        <ul>
+                            <li>Guess letters to reveal the hidden word</li>
+                            <li>Limited attempts before game over</li>
+                            <li>Farewell-themed vocabulary</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h5 class="mt-3 mb-3 border-bottom pb-2">New Games Added!</h5>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-cubes me-2" style="color: #ff416c;"></i>Tetris Game</h5>
+                        <ul>
+                            <li>Stack blocks to complete lines</li>
+                            <li>Use arrow keys to move and rotate</li>
+                            <li>Score increases as you clear lines</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-th me-2" style="color: #8e2de2;"></i>2048 Game</h5>
+                        <ul>
+                            <li>Slide tiles to combine matching numbers</li>
+                            <li>Reach the 2048 tile to win</li>
+                            <li>Plan your moves carefully</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-table-tennis me-2" style="color: #00b09b;"></i>Pong Game</h5>
+                        <ul>
+                            <li>Classic arcade game</li>
+                            <li>Control your paddle with keyboard</li>
+                            <li>Score points against the computer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for handling the View All Games button -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewAllGamesBtn = document.getElementById('viewAllGamesBtn');
+    const allGamesSection = document.getElementById('allGamesSection');
+    
+    viewAllGamesBtn.addEventListener('click', function() {
+        if (allGamesSection.classList.contains('d-none')) {
+            allGamesSection.classList.remove('d-none');
+            viewAllGamesBtn.innerHTML = '<i class="fas fa-minus-circle me-2"></i>Hide All Games';
+        } else {
+            allGamesSection.classList.add('d-none');
+            viewAllGamesBtn.innerHTML = '<i class="fas fa-plus-circle me-2"></i>View All Games';
+        }
+    });
+});
+</script>
+{% endblock %}

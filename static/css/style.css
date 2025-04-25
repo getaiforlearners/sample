@@ -1,0 +1,383 @@
+/* Custom styles for the employee send-off application */
+
+/* Base Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* Card Styles */
+.game-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    height: 140px;
+    object-fit: cover;
+}
+
+/* Memory Game Styles */
+.memory-card {
+    perspective: 1000px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    position: relative;
+    margin: 5px;
+    transform-style: preserve-3d;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched .card-inner {
+    transform: rotateY(180deg);
+    border: 2px solid var(--bs-success);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+    background-color: var(--bs-indigo);
+    color: white;
+    font-size: 1.5rem;
+    transform: rotateY(180deg);
+}
+
+.card-back {
+    background-color: var(--bs-teal);
+    font-size: 2rem;
+    transform: rotateY(0deg);
+}
+
+/* Make sure both front and back appear correctly in 3D space */
+.memory-card .card-front {
+    z-index: 1;
+}
+
+.memory-card .card-back {
+    z-index: 2;
+}
+
+.memory-card.flipped .card-front {
+    z-index: 2;
+}
+
+.memory-card.flipped .card-back {
+    z-index: 1;
+}
+
+.card-number {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.card-number-back {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-emoji {
+    font-size: 1.8rem;
+}
+
+.memory-card.celebrate {
+    animation: celebrate 1s ease;
+}
+
+@keyframes celebrate {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.memory-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.game-section {
+    margin-top: 15px;
+}
+
+#comparison-chart {
+    padding: 15px;
+}
+
+/* Game board card size adjustments for different screen sizes */
+@media (min-width: 1200px) {
+    .memory-board {
+        grid-template-columns: repeat(4, 80px);
+        gap: 10px;
+    }
+    .memory-card {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .memory-board {
+        grid-template-columns: repeat(4, 70px);
+        gap: 8px;
+    }
+    .memory-card {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .memory-board {
+        grid-template-columns: repeat(3, 70px);
+        gap: 8px;
+    }
+    .memory-card {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 767px) {
+    .memory-board {
+        grid-template-columns: repeat(3, 60px);
+        gap: 6px;
+    }
+    .memory-card {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 575px) {
+    .memory-board {
+        grid-template-columns: repeat(3, 55px);
+        gap: 5px;
+    }
+    .memory-card {
+        width: 55px;
+        height: 55px;
+    }
+    .card-emoji {
+        font-size: 1.4rem;
+    }
+}
+
+/* Word Puzzle Styles */
+#word-display {
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Trivia Quiz Styles */
+.answer-btn {
+    margin-bottom: 10px;
+    text-align: left;
+    white-space: normal;
+    position: relative;
+    overflow: visible;
+}
+
+/* Emoji Reactions */
+.reaction-bubble {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+}
+
+.reaction-animate {
+    opacity: 1;
+    transform: scale(1.2);
+    animation: bounce-reaction 0.6s ease forwards;
+}
+
+.reaction-correct {
+    background: rgba(210, 255, 210, 0.95);
+}
+
+.reaction-wrong {
+    background: rgba(255, 210, 210, 0.95);
+}
+
+.reaction-timeout {
+    background: rgba(255, 240, 210, 0.95);
+}
+
+.reaction-correct-highlight {
+    background: rgba(220, 255, 220, 0.95);
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.5);
+}
+
+.reaction-correct-highlight.reaction-animate {
+    transform: translateY(-50%) scale(1);
+}
+
+.emoji-reaction {
+    display: inline-block;
+    font-size: 1.3rem;
+    margin: 0 3px;
+    animation: pulse-emoji 1s infinite alternate;
+}
+
+@keyframes bounce-reaction {
+    0%, 20%, 50%, 80%, 100% { transform: scale(1); }
+    40% { transform: scale(1.3); }
+    60% { transform: scale(1.1); }
+}
+
+@keyframes pulse-emoji {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+/* Profile Styles */
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+}
+
+/* Leaderboard Styles */
+.leaderboard-card {
+    margin-bottom: 20px;
+}
+
+.score-badge {
+    font-size: 1rem;
+}
+
+.leaderboard-item {
+    transition: background-color 0.2s ease;
+}
+
+.leaderboard-item:hover {
+    background-color: var(--bs-secondary-bg);
+}
+
+/* Celebration Effects */
+.farewell-message {
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+/* Active Users Section */
+.active-users-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Custom Spinner */
+.spinner-border-lg {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Custom Tooltip */
+.tooltip-inner {
+    max-width: 300px;
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    padding: 20px 0;
+}
+
+/* Surprise Button */
+.surprise-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--bs-warning);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.surprise-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--bs-danger);
+}

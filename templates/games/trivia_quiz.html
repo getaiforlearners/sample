@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Trivia Quiz{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center py-4">
+                <h1 class="display-5">
+                    <i class="fas fa-question-circle me-2"></i>Farewell Trivia Quiz
+                </h1>
+                <p class="lead mb-0">
+                    Test your knowledge with farewell-themed trivia questions!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-gamepad me-2"></i>Quiz Area</h5>
+                <div>
+                    <span class="badge bg-light text-dark me-2">
+                        <i class="fas fa-clock me-1"></i>Time: <span id="timer-display">60</span>s
+                    </span>
+                    <span class="badge bg-light text-dark me-2">
+                        <i class="fas fa-star me-1"></i>Score: <span id="score-display">0</span>
+                    </span>
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-list me-1"></i>Question: <span id="question-counter">0/10</span>
+                    </span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="game-message" class="alert d-none"></div>
+                
+                <div id="instructions-panel" class="text-center py-3">
+                    <i class="fas fa-question-circle fa-4x text-warning mb-3"></i>
+                    <h4>Farewell Trivia Quiz</h4>
+                    <p class="lead">Test your knowledge about your colleagues with these humorous personality-based questions!</p>
+                    
+                    <div class="bg-light p-3 rounded mb-4 shadow-sm border">
+                        <p class="mb-2"><strong>How to play:</strong></p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Choose which colleague matches each question</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Enjoy funny responses regardless of your answer</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Answer before the timer runs out</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Have fun learning funny facts about your colleagues!</li>
+                        </ul>
+                    </div>
+                    
+                    <button id="start-game" class="btn btn-lg btn-warning">
+                        <i class="fas fa-play me-2"></i>Start Quiz
+                    </button>
+                </div>
+                
+                <div id="question-container" style="display: none;">
+                    <div class="mb-3">
+                        <div class="progress" style="height: 10px;">
+                            <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4 border-primary">
+                        <div class="card-body">
+                            <h4 id="question-text" class="mb-0 text-center"></h4>
+                        </div>
+                    </div>
+                    
+                    <div id="answer-container" class="d-grid gap-2">
+                        <!-- Answer buttons will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-white">
+                <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Top Trivia Scores</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Player</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trivia-leaderboard">
+                            <tr>
+                                <td colspan="3" class="text-center py-3">
+                                    <em>Play to see scores!</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-laugh-beam me-2"></i>Farewell Humor</h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <i class="fas fa-smile-wink fa-3x text-warning"></i>
+                </div>
+                <p class="text-center">Enjoy funny responses from your colleagues regardless of your answers!</p>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Games
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/games/trivia_quiz.js') }}"></script>
+{% endblock %}
